@@ -1,43 +1,43 @@
 import sys
 from PyQt5.QtWidgets import *
 
+# QCheckBox
+
 class MyWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUI()
-
+    
     def setupUI(self):
         self.setGeometry(800, 200, 300, 300)
 
-        groupBox = QGroupBox("시간 단위", self)
-        groupBox.move(10, 10)
-        groupBox.resize(280, 80)
+        self.checkBox1 = QCheckBox("5일 이동평균선", self)
+        self.checkBox1.move(10, 20)
+        self.checkBox1.resize(150, 30)
+        self.checkBox1.stateChanged.connect(self.checkBoxState)
 
-        self.radio1 = QRadioButton("일봉", self)
-        self.radio1.move(20, 20)
-        self.radio1.setChecked(True)
-        self.radio1.clicked.connect(self.radioButtonClicked)
+        self.checkBox2 = QCheckBox("20일 이동평균선", self)
+        self.checkBox2.move(10, 50)
+        self.checkBox2.resize(150, 30)
+        self.checkBox2.stateChanged.connect(self.checkBoxState)
 
-        self.radio2 = QRadioButton("주봉", self)
-        self.radio2.move(20, 40)
-        self.radio2.clicked.connect(self.radioButtonClicked)
-
-        self.radio3 = QRadioButton("월봉", self)
-        self.radio3.move(20, 60)
-        self.radio3.clicked.connect(self.radioButtonClicked)
+        self.checkBox3 = QCheckBox("60일 이동평균선", self)
+        self.checkBox3.move(10, 80)
+        self.checkBox3.resize(150, 30)
+        self.checkBox3.stateChanged.connect(self.checkBoxState)
 
         self.statusBar = QStatusBar(self)
         self.setStatusBar(self.statusBar)
 
-    def radioButtonClicked(self):
+    def checkBoxState(self):
         msg = ""
-        if self.radio1.isChecked():
-            msg = "일봉"
-        elif self.radio2.isChecked():
-            msg = "주봉"
-        else:
-            msg = "월봉"
-        self.statusBar.showMessage(msg + "선택 됨")
+        if self.checkBox1.isChecked() == True:
+            msg += "5일 "
+        if self.checkBox2.isChecked() == True:
+            msg += "20일 "
+        if self.checkBox3.isChecked() == True:
+            msg += "60일 "
+        self.statusBar.showMessage(msg)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
